@@ -35,13 +35,13 @@ const deleteProject = (projects, project) => projects.filter(w => project.id !==
 
 // 01 - Define the shape of the states
 export interface ProjectsState {
-  projets: Project[];
+  projects: Project[];
   selectedProjectId: string | null;
 };
  
 // 02 - Define the initial state 
 export const initialState: ProjectsState = {
-  projets: initialProjects,
+  projects: initialProjects,
   selectedProjectId: null
 };
 

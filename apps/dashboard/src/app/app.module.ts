@@ -13,6 +13,7 @@ import { UiToolbarModule } from '@workshop/ui-toolbar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { StateModule } from 'libs/core-data/src/lib/state/state.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AppComponent } from './app.component';
     UiLoginModule,
     UiToolbarModule,
     MaterialModule,
+    StateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
