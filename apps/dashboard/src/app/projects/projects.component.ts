@@ -1,9 +1,20 @@
-import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { Customer, Project, ProjectsService, NotificationsService, CustomersService, ProjectsState, AddProject, UpdateProject, DeleteProject, LoadProjects } from '@workshop/core-data';
 import { Store, select } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { initialProjects } from 'libs/core-data/src/lib/state/projects/projects.reducer';
+import {
+  AddProject,
+  Customer,
+  CustomersService,
+  DeleteProject,
+  LoadProjects,
+  NotificationsService,
+  Project,
+  ProjectsService,
+  ProjectsState,
+  UpdateProject,
+  initialProjects,
+  selectAllProjects
+} from '@workshop/core-data';
+import { Observable } from 'rxjs';
 
 const emptyProject: Project = {
   id: null,
@@ -12,7 +23,7 @@ const emptyProject: Project = {
   percentComplete: 0,
   approved: false,
   customerId: null
-}
+};
 
 @Component({
   selector: 'app-projects',
@@ -28,13 +39,12 @@ export class ProjectsComponent implements OnInit {
     private projectsService: ProjectsService,
     private customerService: CustomersService,
     private ns: NotificationsService,
-    private store: Store<ProjectsState>) {
-      this.projects$ = this.store.pipe(
-        select('projects'),
-        map((data) => data.entities),
-        map((data) => Object.keys(data).map((key) => data[key])),
-      );
-    }
+    private store: Store<ProjectsState>
+  ) {
+    this.projects$ = this.store.pipe(
+      select(selectAllProjects),
+    );
+  }
 
   ngOnInit() {
     this.getProjects();
@@ -73,14 +83,14 @@ export class ProjectsComponent implements OnInit {
 
   createProject(project) {
     this.store.dispatch(new AddProject(project));
-    this.ns.emit('Project created!'); 
-     this.resetCurrentProject();
+    this.ns.emit('Project created!');
+    this.resetCurrentProject();
     /* this.projectsService.create(project)
       .subscribe(response => {
         this.ns.emit('Project created!');
         this.getProjects();
         this.resetCurrentProject();
-      }); */ 
+      }); */
   }
 
   updateProject(project) {
@@ -105,6 +115,5 @@ export class ProjectsComponent implements OnInit {
         this.getProjects();
         this.resetCurrentProject();
       }); */
-  } 
+  }
 }
-
