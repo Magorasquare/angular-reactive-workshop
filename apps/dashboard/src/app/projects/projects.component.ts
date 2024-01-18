@@ -11,7 +11,6 @@ import {
   ProjectsService,
   ProjectsState,
   UpdateProject,
-  initialProjects,
   selectAllProjects
 } from '@workshop/core-data';
 import { Observable } from 'rxjs';
@@ -70,7 +69,7 @@ export class ProjectsComponent implements OnInit {
 
   getProjects() {
     //this.projects$ = this.projectsService.all();
-    this.store.dispatch(new LoadProjects(initialProjects));
+    this.store.dispatch(new LoadProjects());
   }
 
   saveProject(project) {
